@@ -18,6 +18,10 @@ class World < Set
     new_set
   end
 
+  def create_hood()
+
+    (-1..1).to_a.map { |x| (-1..1).to_a.map { |y| [x,y] } }.flatten(1).to_set
+  end
 
 end
 
@@ -41,6 +45,12 @@ describe "conways" do
     w_n = w.tick
 
     w_n.should == [].to_set
+  end
+
+  it "creates a neighborhood" do
+    w = World.new [[0,0]]
+    n = w.create_hood
+    n.should == [[-1,-1], [-1,0], [-1,1], [0,0], [1,1], [0,-1], [0,1], [1,-1], [1,0] ].to_set
   end
 
 end
