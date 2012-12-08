@@ -13,8 +13,6 @@ class World < Set
     else
       new_set << [1, 1]
     end
-
-
     new_set
   end
 
@@ -24,6 +22,14 @@ class World < Set
         [x+elem[0], y+elem[1]]
       end
     end.flatten(1).to_set
+  end
+
+  def get_live_hood elem
+    st = create_hood(elem)
+    st = st & self
+
+    st.delete(elem)
+    st
   end
 
 end
@@ -54,6 +60,13 @@ describe "conways" do
     w = World.new [[0, 0]]
     n = w.create_hood([0, 0])
     n.should == [[-1, -1], [-1, 0], [-1, 1], [0, 0], [1, 1], [0, -1], [0, 1], [1, -1], [1, 0]].to_set
+  end
+
+  it "returns neighbourhood" do
+    w = World.new [[0, 0], [1, 1]]
+
+    w.get_live_hood([1,1]).should == [[0,0]].to_set
+
   end
 
 end
