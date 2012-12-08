@@ -79,9 +79,14 @@ describe "conways" do
     w.get_live_hood([1,1]).should == [[0,0]].to_set
   end
 
-  it "determine if live" do
+  it "determines if dead" do
     w = World.new [[0,0]]
     World::is_alive?(w.get_live_hood([1,1]), true).should be_false
+  end
+
+  it "determines if alive" do
+    w = World.new [[0, 0], [0, 1], [1, 0]]
+    World::is_alive?(w.get_live_hood([1,1]), true).should be_true
   end
 
 end
