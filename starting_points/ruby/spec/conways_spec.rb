@@ -32,6 +32,17 @@ class World < Set
     st
   end
 
+  def self.is_alive?(hood, current_state)
+    case hood.length
+      when 3
+        return true
+      when 2
+        return current_state
+      else
+        return false
+    end
+  end
+
 end
 
 describe "conways" do
@@ -66,7 +77,11 @@ describe "conways" do
     w = World.new [[0, 0], [1, 1]]
 
     w.get_live_hood([1,1]).should == [[0,0]].to_set
+  end
 
+  it "determine if live" do
+    w = World.new [[0,0]]
+    World::is_alive?(w.get_live_hood([1,1]), true).should be_false
   end
 
 end
